@@ -2,13 +2,12 @@ import React from 'react'
 
 
 class TeamsPoints extends React.Component {
-  constructor(name){
+  constructor(name, setState){
     super()
-    this.state = {
-      name: name,
-      points: 0,
-      games_won: 0,
-    }
+    this.setState = setState
+    this.name = name 
+    this.points = 0
+    this.games_won = 0
   }
 
   setName = (name) => {

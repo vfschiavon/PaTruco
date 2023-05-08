@@ -11,13 +11,20 @@ const backgroundImage = require('./assets/background/dark-2.png');
 
 export default class App extends React.Component{
   state = {
-    team_1: new TeamsPoints('Team1'),
-    team_2: new TeamsPoints('Team2'),
-    game: new GamePoints(),
+    team_1: null,
+    team_2: null,
+    game: null,
+    isMounted: false,
+  }
+
+  componentDidMount() {
+    this.setState({ team_1: new TeamsPoints("Team 1"), team_2: new TeamsPoints("Team 2"), game: new GamePoints(), isMounted: true });
+    console.log("App mounted");
   }
 
   render() {
-    return (
+    console.log(this.state);
+    return this.state.isMounted ? (
       <View style={styles.container}>
         <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
           <Text style={styles.title}>PaTruco!</Text>
@@ -34,7 +41,7 @@ export default class App extends React.Component{
         </ImageBackground>
         <StatusBar style="auto" />
       </View>
-    );
+    ) : (<View></View>);
   };
 }
 
