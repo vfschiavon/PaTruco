@@ -35,17 +35,17 @@ function Button({ team_1, team_2, game, type }) {
 		return (
 			<View style={styles.buttonContainer}>
 				<TouchableHighlight style={styles.buttonLeft} onPress={() => addPointsTeam1(team_1, game)}>
-					<Text style={styles.text}>+{game.turn_points}</Text>
+					<Text style={styles.text}>+{game.state.turn_points}</Text>
 				</TouchableHighlight>
 				<TouchableHighlight style={styles.buttonRight} onPress={() => addPointsTeam2(team_2, game)}>
-					<Text style={styles.text}>+{game.turn_points}</Text>
+					<Text style={styles.text}>+{game.state.turn_points}</Text>
 				</TouchableHighlight>
 			</View>
 		);
 	} else if (type === "changeTurnCall") {
 		return (
 			<View style={styles.buttonContainer}>
-				<TouchableHighlight style={styles.buttonCenter} onPress={() => game.changeTurnCall()}>
+				<TouchableHighlight style={styles.buttonCenter} onPress={() => game.addTurnPoints()}>
 					<Text style={styles.text}>{game.state.turn_next_call}</Text>
 				</TouchableHighlight>
 			</View>
