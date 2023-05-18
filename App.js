@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import Points from './src/Points'
+import HistoryNavScreen from './src/HistoryNavScreen'
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -30,10 +31,9 @@ export default class App extends React.Component{
           <Tab.Screen name="Contador">
             {() => <Points addPointsHistory={this.addPointsHistory} clearPointsHistory={this.clearPointsHistory} />}
           </Tab.Screen>
-
-          {/* <Tab.Screen name="Histórico">
-            
-          </Tab.Screen> */}
+          <Tab.Screen name="Histórico">
+            {props => <HistoryNavScreen {...props} pointsHistory={this.state.pointsHistory} />}
+          </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
     );
