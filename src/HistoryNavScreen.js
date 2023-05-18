@@ -7,7 +7,7 @@ const HistoryNav = createStackNavigator();
 
 const HistoryNavScreen = ({ pointsHistory }) => (
 	<HistoryNav.Navigator>
-		<HistoryNav.Screen name="Histórico">
+		<HistoryNav.Screen name="Pontos">
 			{props => <History {...props} pointsHistory={pointsHistory} />}
 		</HistoryNav.Screen>
 	</HistoryNav.Navigator>
