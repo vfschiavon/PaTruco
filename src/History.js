@@ -17,12 +17,12 @@ export default class History extends React.Component {
 						pointsHistory.map((points, index) => (
 							<View key={index} style={styles.pointsHistory}>
 								<View style={styles.pointsHistoryTeam}>
-									<Text style={styles.pointsHistoryTeamName}>{points.team1.name}</Text>
-									<Text style={styles.pointsHistoryTeamPoints}>{points.team1.points}</Text>
+									<Text style={styles.pointsHistoryTeamName}>{points.teams[0].name}</Text>
+									<Text style={styles.pointsHistoryTeamPoints}>{points.teams[0].points}</Text>
 								</View>
 								<View style={styles.pointsHistoryTeam}>
-									<Text style={styles.pointsHistoryTeamName}>{points.team2.name}</Text>
-									<Text style={styles.pointsHistoryTeamPoints}>{points.team2.points}</Text>
+									<Text style={styles.pointsHistoryTeamName}>{points.teams[1].name}</Text>
+									<Text style={styles.pointsHistoryTeamPoints}>{points.teams[1].points}</Text>
 								</View>
 							</View>
 						))

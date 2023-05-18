@@ -13,45 +13,30 @@ export default class Points extends React.Component{
 		this.state = {
 			turnPoints: 1,
 			turnNextCall: 'Truco',
-			team1: {
-				name: 'Time 1',
-				points: 0,
-				gamesWon: 0,
-			},
-			team2: {
-				name: 'Time 2',
-				points: 0,
-				gamesWon: 0,
-			},
+			teams: [{
+					name: 'Time 1',
+					points: 0,
+					gamesWon: 0,
+				}, {
+					name: 'Time 2',
+					points: 0,
+					gamesWon: 0,
+				}]
 		}
-		// this.state = {
-		// 	turnPoints: 1,
-		// 	turnNextCall: 'Truco',
-		// 	teams: [{
-		// 			name: 'Time 1',
-		// 			points: 0,
-		// 			gamesWon: 0,
-		// 		}, {
-		// 			name: 'Time 2',
-		// 			points: 0,
-		// 			gamesWon: 0,
-		// 		}]
-		// }
 		this.showAlert = this.showAlert.bind(this);
 	}
 
 	submit = () => {
 		const points = {
-			team1: {
-				name: this.state.team1.name,
-				points: this.state.team1.points,
-				gamesWon: this.state.team1.gamesWon,
-			},
-			team2: {
-				name: this.state.team2.name,
-				points: this.state.team2.points,
-				gamesWon: this.state.team2.gamesWon,
-			}
+			teams: [{
+				name: this.state.teams[0].name,
+				points: this.state.teams[0].points,
+				gamesWon: this.state.teams[0].gamesWon,
+			}, {
+				name: this.state.teams[1].name,
+				points: this.state.teams[1].points,
+				gamesWon: this.state.teams[1].gamesWon,
+			}]
 		}
 		this.props.addPointsHistory(points);
 	}
@@ -64,64 +49,39 @@ export default class Points extends React.Component{
 		)
 	}
 
-	setNameTeam1 = (name) => {
-		this.setState({ ...this.state, team1: { ...this.state.team1, name: name } });
+	setName = (team, name) => {
+		this.setState({ ...this.state, teams: { ...this.state.teams, [team]: { ...this.state.teams[team], name: name } } });
 	}
 
-	addPointsTeam1 = (points) => {
-		if (this.state.team1.points + points < 12) {
+	addPoints = (team, points) => {
+		if (this.state.teams[team].points + points < 12) {
 			this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco',
-				team1: { ...this.state.team1, points: this.state.team1.points + points }
+				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points + points } }
 			});
 		} else {
 			this.setState({ turnPoints: 1, turnNextCall: 'Truco',
-				team1: { ...this.state.team1, points: 0, gamesWon: this.state.team1.gamesWon + 1 },
-				team2: { ...this.state.team2, points: 0 },
+				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 } }
 			});
-			this.showAlert('Time 1 ganhou esta mão!');
+			this.showAlert(this.state.teams[team].name + ' ganhou!');
 		}
 		this.submit();
 	}
 
-	subPointTeam1 = () => {
-		if (this.state.team1.points > 0) {
-			this.setState({ ...this.state, team1: { ...this.state.team1, points: this.state.team1.points - 1 } });
-			this.submit();
-		}
-	}
-
-	setNameTeam2 = (name) => {
-		this.setState({ ...this.state, team2: { ...this.state.team2, name: name } });
-	}
-
-	addPointsTeam2 = (points) => {
-		if (this.state.team2.points + points < 12) {
-			this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco',
-			team2: { ...this.state.team2, points: this.state.team2.points + points },
-			});
-		} else {
-			this.setState({ turnPoints: 1, turnNextCall: 'Truco',
-				team1: { ...this.state.team1, points: 0 },
-				team2: { ...this.state.team2, points: 0, gamesWon: this.state.team2.gamesWon + 1 },
-			});
-			this.showAlert('Time 2 ganhou esta mão!');
-		}
-		this.submit();
-	}
-
-	subPointTeam2 = () => {
-		if (this.state.team2.points > 0) {
-			this.setState({ ...this.state, team2: { ...this.state.team2, points: this.state.team2.points - 1 } });
+	subPoint = (team) => {
+		if (this.state.teams[team].points > 0) {
+			this.setState({ ...this.state, teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points - 1 } } });
 			this.submit();
 		}
 	}
 
 	resetAll = () => {
 		this.setState({ turnPoints: 1, turnNextCall: 'Truco',
-			team1: { ...this.state.team1, points: 0, gamesWon: 0 },
-			team2: { ...this.state.team2, points: 0, gamesWon: 0 },
+			teams: [
+				{ ...this.state.teams[0], points: 0, gamesWon: 0 },
+				{ ...this.state.teams[1], points: 0, gamesWon: 0 }
+			]
 		});
-		this.props.clearPointsHistory();
+		this.props.resetPointsHistory();
 	}
 
 	call = () => {
@@ -143,24 +103,24 @@ export default class Points extends React.Component{
 			<View style={ styles.container }>
 				<ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
 					<Text style={styles.title}>PaTruco!</Text>
-
+					
 					<View style={styles.row}>
 						<View style={styles.columnLeft}>
-							<TextInput onChangeText={this.setNameTeam1} style={styles.input} value={this.state.team1.name} />
-							<Text style={styles.points}>{this.state.team1.points}</Text>
-							<Text style={styles.gamesWon}>{this.state.team1.gamesWon}</Text>
-							<Button type='sub' text='-' func={() => this.subPointTeam1()} />
-							<Button type='add' text={this.state.turnPoints} func={() => this.addPointsTeam1(this.state.turnPoints)} />
+							<TextInput onChangeText={val => this.setName(0, val)} style={styles.input} value={this.state.teams[0].name} />
+							<Text style={styles.points}>{this.state.teams[0].points}</Text>
+							<Text style={styles.gamesWon}>{this.state.teams[0].gamesWon}</Text>
+							<Button type='sub' text='-' func={() => this.subPoint(0)} />
+							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(0, this.state.turnPoints)} />
 						</View>
 
 						{/* <Image source={duckImage} style={styles.centerImage} /> */}
 
 						<View style={styles.columnRight}>
-							<TextInput onChangeText={this.setNameTeam2} style={styles.input} value={this.state.team2.name} />
-							<Text style={styles.points}>{this.state.team2.points}</Text>
-							<Text style={styles.gamesWon}>{this.state.team2.gamesWon}</Text>
-							<Button type='sub' text='-' func={() => this.subPointTeam2()} />
-							<Button type='add' text={this.state.turnPoints} func={() => this.addPointsTeam2(this.state.turnPoints)} />
+							<TextInput onChangeText={val => this.setName(1, val)} style={styles.input} value={this.state.teams[1].name} />
+							<Text style={styles.points}>{this.state.teams[1].points}</Text>
+							<Text style={styles.gamesWon}>{this.state.teams[1].gamesWon}</Text>
+							<Button type='sub' text='-' func={() => this.subPoint(1)} />
+							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(1, this.state.turnPoints)} />
 						</View>
 					</View>
 
