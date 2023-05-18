@@ -59,9 +59,21 @@ export default class Points extends React.Component{
 				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points + points } }
 			});
 		} else {
-			this.setState({ turnPoints: 1, turnNextCall: 'Truco',
-				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 } }
-			});
+			if (team === 0) {
+				this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
+					teams: {
+						[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
+						[1]: { ...this.state.teams[1], points: 0 }
+					} }
+				);
+			} else {
+				this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
+					teams: {
+						[0]: { ...this.state.teams[0], points: 0 },
+						[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 }
+					} }
+				);
+			}
 			this.showAlert(this.state.teams[team].name + ' ganhou!');
 		}
 		this.submit();
