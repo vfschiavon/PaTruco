@@ -20,7 +20,7 @@ export default class App extends React.Component{
     console.log(this.state.pointsHistory)
   }
 
-  clearPointsHistory = () => {
+  resetPointsHistory = () => {
     this.setState({ pointsHistory: [] })
   }
 
@@ -29,7 +29,7 @@ export default class App extends React.Component{
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Contador">
-            {() => <Points addPointsHistory={this.addPointsHistory} clearPointsHistory={this.clearPointsHistory} />}
+            {() => <Points addPointsHistory={this.addPointsHistory} resetPointsHistory={this.resetPointsHistory} />}
           </Tab.Screen>
           <Tab.Screen name="Histórico">
             {props => <HistoryNavScreen {...props} pointsHistory={this.state.pointsHistory} />}
