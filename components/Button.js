@@ -1,110 +1,76 @@
 import { StyleSheet, Text, TouchableHighlight, Image, View } from 'react-native';
 
-import TeamsPoints from '../src/TeamsPoints'
-import GamePoints from '../src/GamePoints'
 
-
-function resetAll(team_1, team_2) {
-	team_1.resetPointsAndGamesWon();
-	team_2.resetPointsAndGamesWon();
-}
-
-function addPointsTeam1(team_1, game) {
-	team_1.addPoints(game.state.turn_points);
-	game.resetTurnPoints();
-}
-
-function addPointsTeam2(team_2, game) {
-	team_2.addPoints(game.state.turn_points);
-	game.resetTurnPoints();
-}
-
-function Button({ team_1, team_2, game, type }) {
-  if (type === "subtract") {
+function Button({ type, text, func }) {
+	if (type == 'sub') {
 		return (
-			<View style={styles.buttonContainer}>
-				<TouchableHighlight style={styles.buttonLeft} onPress={() => team_1.subPoint()}>
-					<Text style={styles.text}>-1</Text>
-				</TouchableHighlight>
-				<TouchableHighlight style={styles.buttonRight} onPress={() => team_2.subPoint()}>
-					<Text style={styles.text}>-1</Text>
-				</TouchableHighlight>
-			</View>
+			<TouchableHighlight style={styles.buttonSub} onPress={func}>
+				<Text style={styles.text}>{text}</Text>
+			</TouchableHighlight>
 		);
-  } else if (type === "add") {
+	} else if (type == 'add') {
 		return (
-			<View style={styles.buttonContainer}>
-				<TouchableHighlight style={styles.buttonLeft} onPress={() => addPointsTeam1(team_1, game)}>
-					<Text style={styles.text}>+{game.state.turn_points}</Text>
-				</TouchableHighlight>
-				<TouchableHighlight style={styles.buttonRight} onPress={() => addPointsTeam2(team_2, game)}>
-					<Text style={styles.text}>+{game.state.turn_points}</Text>
-				</TouchableHighlight>
-			</View>
+			<TouchableHighlight style={styles.buttonAdd} onPress={func}>
+				<Text style={styles.text}>{text}</Text>
+			</TouchableHighlight>
 		);
-	} else if (type === "changeTurnCall") {
+	} else if (type == 'call') {
 		return (
-			<View style={styles.buttonContainer}>
-				<TouchableHighlight style={styles.buttonCenter} onPress={() => game.addTurnPoints()}>
-					<Text style={styles.text}>{game.state.turn_next_call}</Text>
-				</TouchableHighlight>
-			</View>
+			<TouchableHighlight style={styles.buttonCall} onPress={func}>
+				<Text style={styles.text}>{text}</Text>
+			</TouchableHighlight>
 		);
-  } else if (type === "reset") {
+	} else if (type == 'reset') {
 		return (
-			<View style={styles.buttonContainer}>
-				<TouchableHighlight style={styles.buttonCenter} onPress={() => resetAll(team_1, team_2)}>
-					<Text style={styles.text}>Reset</Text>
-				</TouchableHighlight>
-			</View>
+			<TouchableHighlight style={styles.buttonReset} onPress={func}>
+				<Text style={styles.text}>{text}</Text>
+			</TouchableHighlight>
 		);
-  }
+	}
 }
 
 
 const styles = StyleSheet.create({
-	buttonContainer: {
-		flex: 1,
-		flexDirection: 'row',
-	},
-	buttonLeft: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
+	buttonSub: {
+		backgroundColor: 'red',
+		borderRadius: 100,
+		width: 20,
+		height: 20,
+		margin: 10,
+		textAlign: 'center',
 		justifyContent: 'center',
-		borderRightWidth: 1,
-		borderRightColor: '#000',
-
+	},
+	buttonAdd: {
+		backgroundColor: 'green',
+		borderRadius: 50,
 		width: 50,
 		height: 50,
-	},
-	buttonCenter: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
+		margin: 10,
+		textAlign: 'center',
 		justifyContent: 'center',
-
-		width: 50,
-		height: 50,
 	},
-	buttonRight: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
+	buttonCall: {
+		backgroundColor: 'blue',
+		width: 400,
+		height: 50,
+		margin: 10,
 		justifyContent: 'center',
-		borderLeftWidth: 1,
-		borderLeftColor: '#000',
-
-		width: 50,
-		height: 50,
+		alignItems: 'center',
+		borderRadius: 10,
 	},
-	image: {
-		width: 50,
-		height: 50,
+	buttonReset: {
+		backgroundColor: 'yellow',
+		width: 200,
+		height: 20,
+		margin: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 10,
 	},
 	text: {
-		fontSize: 30,
-	},
+		color: 'black',
+		fontSize: 20,
+	}
 })
 
 
