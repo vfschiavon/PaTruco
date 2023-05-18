@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableHighlight, Image, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, Image, View } from 'react-native';
 
 
 function Button({ type, text, func }) {
@@ -10,9 +10,10 @@ function Button({ type, text, func }) {
 		);
 	} else if (type == 'add') {
 		return (
-			<TouchableHighlight style={styles.buttonAdd} onPress={func}>
+			<TouchableOpacity onPress={func}>
+				<Image source={require('../assets/duck/duck-paw-fingers.png')} resizeMode='stretch' style={styles.buttonAdd}/>
 				<Text style={styles.text}>{text}</Text>
-			</TouchableHighlight>
+			</TouchableOpacity>
 		);
 	} else if (type == 'call') {
 		return (
@@ -33,27 +34,26 @@ function Button({ type, text, func }) {
 const styles = StyleSheet.create({
 	buttonSub: {
 		backgroundColor: 'red',
-		borderRadius: 100,
-		width: 20,
-		height: 20,
-		margin: 10,
+		borderRadius: 50,
+		width: 30,
+		height: 30,
+		marginTop: 100,
 		textAlign: 'center',
 		justifyContent: 'center',
 	},
 	buttonAdd: {
-		backgroundColor: 'green',
-		borderRadius: 50,
-		width: 50,
-		height: 50,
-		margin: 10,
-		textAlign: 'center',
-		justifyContent: 'center',
+		borderColor: 'red',
+		borderWidth: 1,
+		borderRadius: 100,
+		width: 120,
+		height: 120,
+		margin: 20,
 	},
 	buttonCall: {
 		backgroundColor: 'blue',
 		width: 400,
 		height: 50,
-		margin: 10,
+		marginTop: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 10,
@@ -70,6 +70,9 @@ const styles = StyleSheet.create({
 	text: {
 		color: 'black',
 		fontSize: 20,
+		borderColor: 'green',
+		borderWidth: 1,
+		textAlign: 'center',
 	}
 })
 
