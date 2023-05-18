@@ -3,7 +3,6 @@ import { Text, View, StyleSheet } from 'react-native'
 
 
 const CenterMessage = ({ message }) => (
-	console.log("CENTER MESSAGE"),
 	<View style={styles.emptyContainer}>
 		<Text style={styles.message}>
 			{message}
