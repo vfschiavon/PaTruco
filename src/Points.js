@@ -10,33 +10,33 @@ const duckImage = require('../assets/duck/walking-duck-frame.png');
 export default class Points extends React.Component{
 	constructor() {
 		super();
-		// this.state = {
-		// 	turnPoints: 1,
-		// 	turnNextCall: 'Truco',
-		// 	team1: {
-		// 		name: 'Time 1',
-		// 		points: 0,
-		// 		gamesWon: 0,
-		// 	},
-		// 	team2: {
-		// 		name: 'Time 2',
-		// 		points: 0,
-		// 		gamesWon: 0,
-		// 	},
-		// }
 		this.state = {
 			turnPoints: 1,
 			turnNextCall: 'Truco',
-			teams: [{
-					name: 'Time 1',
-					points: 0,
-					gamesWon: 0,
-				}, {
-					name: 'Time 2',
-					points: 0,
-					gamesWon: 0,
-				}]
+			team1: {
+				name: 'Time 1',
+				points: 0,
+				gamesWon: 0,
+			},
+			team2: {
+				name: 'Time 2',
+				points: 0,
+				gamesWon: 0,
+			},
 		}
+		// this.state = {
+		// 	turnPoints: 1,
+		// 	turnNextCall: 'Truco',
+		// 	teams: [{
+		// 			name: 'Time 1',
+		// 			points: 0,
+		// 			gamesWon: 0,
+		// 		}, {
+		// 			name: 'Time 2',
+		// 			points: 0,
+		// 			gamesWon: 0,
+		// 		}]
+		// }
 		this.showAlert = this.showAlert.bind(this);
 	}
 
