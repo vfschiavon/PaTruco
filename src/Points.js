@@ -1,28 +1,43 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TextInput, Image, View, Alert } from 'react-native';
 
 import Button from '../components/Button'
 
 const backgroundImage = require('../assets/background/dark-2.png');
+const duckImage = require('../assets/duck/walking-duck-frame.png');
 
 
 export default class Points extends React.Component{
 	constructor() {
 		super();
+		// this.state = {
+		// 	turnPoints: 1,
+		// 	turnNextCall: 'Truco',
+		// 	team1: {
+		// 		name: 'Time 1',
+		// 		points: 0,
+		// 		gamesWon: 0,
+		// 	},
+		// 	team2: {
+		// 		name: 'Time 2',
+		// 		points: 0,
+		// 		gamesWon: 0,
+		// 	},
+		// }
 		this.state = {
 			turnPoints: 1,
 			turnNextCall: 'Truco',
-			team1: {
-				name: 'Time 1',
-				points: 0,
-				gamesWon: 0,
-			},
-			team2: {
-				name: 'Time 2',
-				points: 0,
-				gamesWon: 0,
-			},
+			teams: [{
+					name: 'Time 1',
+					points: 0,
+					gamesWon: 0,
+				}, {
+					name: 'Time 2',
+					points: 0,
+					gamesWon: 0,
+				}]
 		}
+		this.showAlert = this.showAlert.bind(this);
 	}
 
 	submit = () => {
@@ -41,6 +56,14 @@ export default class Points extends React.Component{
 		this.props.addPointsHistory(points);
 	}
 
+	showAlert ( alertTitle ) {
+		Alert.alert(
+			alertTitle,
+			'',
+			[{text: 'Ok', onPress: () => this.submit(), style: 'destructive'}]
+		)
+	}
+
 	setNameTeam1 = (name) => {
 		this.setState({ ...this.state, team1: { ...this.state.team1, name: name } });
 	}
@@ -55,6 +78,7 @@ export default class Points extends React.Component{
 				team1: { ...this.state.team1, points: 0, gamesWon: this.state.team1.gamesWon + 1 },
 				team2: { ...this.state.team2, points: 0 },
 			});
+			this.showAlert('Time 1 ganhou esta mão!');
 		}
 		this.submit();
 	}
@@ -80,6 +104,7 @@ export default class Points extends React.Component{
 				team1: { ...this.state.team1, points: 0 },
 				team2: { ...this.state.team2, points: 0, gamesWon: this.state.team2.gamesWon + 1 },
 			});
+			this.showAlert('Time 2 ganhou esta mão!');
 		}
 		this.submit();
 	}
@@ -92,16 +117,14 @@ export default class Points extends React.Component{
 	}
 
 	resetAll = () => {
-		console.log("RESET")
 		this.setState({ turnPoints: 1, turnNextCall: 'Truco',
 			team1: { ...this.state.team1, points: 0, gamesWon: 0 },
 			team2: { ...this.state.team2, points: 0, gamesWon: 0 },
 		});
-		this.submit();
+		this.props.clearPointsHistory();
 	}
 
 	call = () => {
-		console.log("CALL")
 		if (this.state.turnPoints === 1) {
 			this.setState({ ...this.state, turnPoints: 3, turnNextCall: 'Seis' });
 		} else if (this.state.turnPoints === 3) {
@@ -113,8 +136,6 @@ export default class Points extends React.Component{
 		} else if (this.state.turnPoints === 12) {
 			this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco' });
 		}
-		console.log(this.state.turnPoints);
-		console.log(this.state.turnNextCall);
 	}
 
 	render() {
@@ -125,15 +146,17 @@ export default class Points extends React.Component{
 
 					<View style={styles.row}>
 						<View style={styles.columnLeft}>
-							<TextInput placeholder='Team1' onChangeText={this.setNameTeam1} style={styles.input} value={this.state.team1.name} />
+							<TextInput onChangeText={this.setNameTeam1} style={styles.input} value={this.state.team1.name} />
 							<Text style={styles.points}>{this.state.team1.points}</Text>
 							<Text style={styles.gamesWon}>{this.state.team1.gamesWon}</Text>
 							<Button type='sub' text='-' func={() => this.subPointTeam1()} />
 							<Button type='add' text={this.state.turnPoints} func={() => this.addPointsTeam1(this.state.turnPoints)} />
 						</View>
 
+						{/* <Image source={duckImage} style={styles.centerImage} /> */}
+
 						<View style={styles.columnRight}>
-							<TextInput placeholder='Team2' onChangeText={this.setNameTeam2} style={styles.input} value={this.state.team2.name} />
+							<TextInput onChangeText={this.setNameTeam2} style={styles.input} value={this.state.team2.name} />
 							<Text style={styles.points}>{this.state.team2.points}</Text>
 							<Text style={styles.gamesWon}>{this.state.team2.gamesWon}</Text>
 							<Button type='sub' text='-' func={() => this.subPointTeam2()} />
@@ -163,9 +186,11 @@ const styles = StyleSheet.create({
 		fontSize: 50,
 		color: 'white',
 		textAlign: 'center',
+		marginTop: 20,
 	},
 	row: {
 		flexDirection: 'row',
+		justifyContent: 'space-between',
 	},
 	columnLeft: {
 		flexDirection: 'column',
@@ -184,6 +209,8 @@ const styles = StyleSheet.create({
 		borderColor: 'red',
 		borderWidth: 1,
 		color: 'white',
+		textAlign: 'center',
+		marginTop: 10,
 	},
 	points: {
 		fontSize: 50,
@@ -194,5 +221,10 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: 'white',
 		textAlign: 'center',
+	},
+	centerImage: {
+		width: 100,
+		height: 100,
+		marginTop: 50,
 	},
 });
