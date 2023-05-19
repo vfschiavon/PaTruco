@@ -5,6 +5,7 @@ import Button from '../components/Button'
 
 const backgroundImage = require('../assets/background/dark-1.png');
 const duckImage = require('../assets/duck/walking-duck-frame.png');
+const duckGif = require('../assets/duck/walking-duck.gif');
 
 
 export default class Points extends React.Component{
@@ -124,7 +125,7 @@ export default class Points extends React.Component{
 							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(0, this.state.turnPoints)} />
 						</View>
 
-						<Image source={duckImage} style={styles.centerImage} />
+						<Image source={duckGif} style={styles.centerImage} />
 
 						<View style={styles.columnRight}>
 							<TextInput onChangeText={val => this.setName(1, val)} style={styles.input} value={this.state.teams[1].name} />
