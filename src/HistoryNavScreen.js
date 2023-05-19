@@ -5,10 +5,10 @@ import History from './History'
 const HistoryNav = createStackNavigator();
 
 
-const HistoryNavScreen = ({ pointsHistory }) => (
+const HistoryNavScreen = ({ turnHistory }) => (
 	<HistoryNav.Navigator>
-		<HistoryNav.Screen name="Pontos">
-			{props => <History {...props} pointsHistory={pointsHistory} />}
+		<HistoryNav.Screen name="Vencedores das rodadas">
+			{props => <History {...props} turnHistory={turnHistory} />}
 		</HistoryNav.Screen>
 	</HistoryNav.Navigator>
 )

@@ -27,26 +27,21 @@ export default class Points extends React.Component{
 		this.showAlert = this.showAlert.bind(this);
 	}
 
-	submit = () => {
-		const points = {
-			teams: [{
-				name: this.state.teams[0].name,
-				points: this.state.teams[0].points,
-				gamesWon: this.state.teams[0].gamesWon,
-			}, {
-				name: this.state.teams[1].name,
-				points: this.state.teams[1].points,
-				gamesWon: this.state.teams[1].gamesWon,
-			}]
+	submit = (team, turnPoints) => {
+		const turnWinner = {
+			name: this.state.teams[team].name,
+			points: this.state.teams[team].points,
+			gamesWon: this.state.teams[team].gamesWon,
+			turnPoints: turnPoints,
 		}
-		this.props.addPointsHistory(points);
+		this.props.addTurnHistory(turnWinner);
 	}
 
-	showAlert ( alertTitle ) {
+	showAlert (alertTitle) {
 		Alert.alert(
 			alertTitle,
 			'',
-			[{text: 'Ok', onPress: () => this.submit(), style: 'destructive'}]
+			[{text: 'Ok', style: 'destructive'}]
 		)
 	}
 
@@ -54,11 +49,11 @@ export default class Points extends React.Component{
 		this.setState({ ...this.state, teams: { ...this.state.teams, [team]: { ...this.state.teams[team], name: name } } });
 	}
 
-	addPoints = (team, points) => {
-		if (this.state.teams[team].points + points < 12) {
+	addPoints = (team, turnPoints) => {
+		if (this.state.teams[team].points + turnPoints < 12) {
 			this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco',
-				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points + points } }
-			}, () => { this.submit() });
+				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points + turnPoints } }
+			}, () => { this.submit(team, turnPoints) });
 		} else {
 			if (team === 0) {
 				this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
@@ -66,14 +61,14 @@ export default class Points extends React.Component{
 						[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
 						[1]: { ...this.state.teams[1], points: 0 }
 					}
-				}, () => { this.submit() });
+				}, () => { this.submit(team, turnPoints) });
 			} else {
 				this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
 					teams: {
 						[0]: { ...this.state.teams[0], points: 0 },
 						[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 }
 					}
-				}, () => { this.submit() });
+				}, () => { this.submit(team, turnPoints) });
 			}
 			this.showAlert('Parabéns ' + this.state.teams[team].name + '!');
 		}
@@ -83,7 +78,7 @@ export default class Points extends React.Component{
 		if (this.state.teams[team].points > 0) {
 			this.setState({ ...this.state,
 				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points - 1 } }
-			}, () => { this.submit() });
+			}, () => { this.submit(team, -1) });
 		}
 	}
 
@@ -93,7 +88,7 @@ export default class Points extends React.Component{
 				{ ...this.state.teams[0], points: 0, gamesWon: 0 },
 				{ ...this.state.teams[1], points: 0, gamesWon: 0 }
 			]
-		}, () => this.props.resetPointsHistory() );
+		}, () => this.props.resetTurnHistory() );
 	}
 
 	call = () => {

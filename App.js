@@ -9,19 +9,19 @@ const Tab = createMaterialBottomTabNavigator();
 
 export default class App extends React.Component{
   state = {
-    pointsHistory: []
+    turnHistory: []
   }
 
-  addPointsHistory = (points) => {
-    const pointsHistory = this.state.pointsHistory
-    pointsHistory.push(points)
-    this.setState({ pointsHistory })
+  addTurnHistory = (turnWinner) => {
+    const turnHistory = this.state.turnHistory
+    turnHistory.push(turnWinner)
+    this.setState({ turnHistory })
 
-    console.log(this.state.pointsHistory)
+    console.log(this.state.turnHistory)
   }
 
-  resetPointsHistory = () => {
-    this.setState({ pointsHistory: [] })
+  resetTurnHistory = () => {
+    this.setState({ turnHistory: [] })
   }
 
   render() {
@@ -29,10 +29,10 @@ export default class App extends React.Component{
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Contador">
-            {() => <Points addPointsHistory={this.addPointsHistory} resetPointsHistory={this.resetPointsHistory} />}
+            {() => <Points addTurnHistory={this.addTurnHistory} resetTurnHistory={this.resetTurnHistory} />}
           </Tab.Screen>
           <Tab.Screen name="Histórico">
-            {props => <HistoryNavScreen {...props} pointsHistory={this.state.pointsHistory} />}
+            {props => <HistoryNavScreen {...props} turnHistory={this.state.turnHistory} />}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>

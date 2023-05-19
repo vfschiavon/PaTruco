@@ -6,23 +6,18 @@ import CenterMessage from '../components/CenterMessage'
 
 export default class History extends React.Component {
 	render() {
-		const { pointsHistory } = this.props
+		const { turnHistory } = this.props
 		return (
-			<ScrollView contentContainerStyle={[!pointsHistory.length && { flex: 1 }]}>
-				<View style={[!pointsHistory.length && { justifyContent: 'center', flex: 1 }]}>
+			<ScrollView contentContainerStyle={[!turnHistory.length && { flex: 1 }]}>
+				<View style={[!turnHistory.length && { justifyContent: 'center', flex: 1 }]}>
 					{
-						!pointsHistory.length && <CenterMessage message="Sem histórico de pontos" />
+						!turnHistory.length && <CenterMessage message="Sem histórico de rodadas" />
 					}
 					{
-						pointsHistory.map((points, index) => (
-							<View key={index} style={styles.pointsHistory}>
+						turnHistory.map((turnWinner, index) => (
+							<View key={index} style={styles.turnHistory}>
 								<View style={styles.pointsHistoryTeam}>
-									<Text style={styles.pointsHistoryTeamName}>{points.teams[0].name}</Text>
-									<Text style={styles.pointsHistoryTeamPoints}>{points.teams[0].points}</Text>
-								</View>
-								<View style={styles.pointsHistoryTeam}>
-									<Text style={styles.pointsHistoryTeamName}>{points.teams[1].name}</Text>
-									<Text style={styles.pointsHistoryTeamPoints}>{points.teams[1].points}</Text>
+									<Text style={styles.pointsHistoryTeamName}>{turnWinner.name}</Text>
 								</View>
 							</View>
 						))
@@ -35,7 +30,7 @@ export default class History extends React.Component {
 
 
 const styles = StyleSheet.create({
-	pointsHistory: {
+	turnHistory: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		padding: 10,
