@@ -12,7 +12,9 @@ function Button({ type, text, func }) {
 		return (
 			<TouchableOpacity onPress={func}>
 				<Image source={require('../assets/duck/duck-paw-fingers.png')} resizeMode='stretch' style={styles.buttonAdd}/>
-				<Text style={styles.text}>{text}</Text>
+				<View style={{position: 'absolute', justifyContent: 'center', top: 0, bottom: 0, left: 0, right: 0}}>
+					<Text style={styles.text}>+{text}</Text>
+				</View>
 			</TouchableOpacity>
 		);
 	} else if (type == 'call') {
@@ -68,10 +70,8 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	text: {
-		color: 'black',
+		color: 'white',
 		fontSize: 20,
-		borderColor: 'green',
-		borderWidth: 1,
 		textAlign: 'center',
 	}
 })
