@@ -35,24 +35,22 @@ function Button({ type, text, func }) {
 
 const styles = StyleSheet.create({
 	buttonSub: {
-		backgroundColor: 'red',
+		backgroundColor: '#ff4d4d',
 		borderRadius: 50,
-		width: 30,
-		height: 30,
+		width: 25,
+		height: 25,
 		marginTop: 100,
 		textAlign: 'center',
 		justifyContent: 'center',
 	},
 	buttonAdd: {
-		borderColor: 'red',
-		borderWidth: 1,
-		borderRadius: 100,
+		borderRadius: 15,
 		width: 120,
 		height: 120,
 		margin: 20,
 	},
 	buttonCall: {
-		backgroundColor: 'blue',
+		backgroundColor: '#205375',
 		width: 400,
 		height: 50,
 		marginTop: 10,
@@ -61,7 +59,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 	},
 	buttonReset: {
-		backgroundColor: 'yellow',
+		backgroundColor: '#efefef',
 		width: 200,
 		height: 20,
 		margin: 10,

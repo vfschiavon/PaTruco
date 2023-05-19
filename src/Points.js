@@ -3,7 +3,7 @@ import { ImageBackground, StyleSheet, Text, TextInput, Image, View, Alert } from
 
 import Button from '../components/Button'
 
-const backgroundImage = require('../assets/background/dark-2.png');
+const backgroundImage = require('../assets/background/dark-1.png');
 const duckImage = require('../assets/duck/walking-duck-frame.png');
 
 
@@ -57,32 +57,32 @@ export default class Points extends React.Component{
 		if (this.state.teams[team].points + points < 12) {
 			this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco',
 				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points + points } }
-			});
+			}, () => { this.submit() });
 		} else {
 			if (team === 0) {
 				this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
 					teams: {
 						[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
 						[1]: { ...this.state.teams[1], points: 0 }
-					} }
-				);
+					}
+				}, () => { this.submit() });
 			} else {
 				this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
 					teams: {
 						[0]: { ...this.state.teams[0], points: 0 },
 						[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 }
-					} }
-				);
+					}
+				}, () => { this.submit() });
 			}
-			this.showAlert(this.state.teams[team].name + ' ganhou!');
+			this.showAlert('Parabéns ' + this.state.teams[team].name + '!');
 		}
-		this.submit();
 	}
 
 	subPoint = (team) => {
 		if (this.state.teams[team].points > 0) {
-			this.setState({ ...this.state, teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points - 1 } } });
-			this.submit();
+			this.setState({ ...this.state,
+				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points - 1 } }
+			}, () => { this.submit() });
 		}
 	}
 
@@ -92,8 +92,7 @@ export default class Points extends React.Component{
 				{ ...this.state.teams[0], points: 0, gamesWon: 0 },
 				{ ...this.state.teams[1], points: 0, gamesWon: 0 }
 			]
-		});
-		this.props.resetPointsHistory();
+		}, () => this.props.resetPointsHistory() );
 	}
 
 	call = () => {
@@ -115,7 +114,7 @@ export default class Points extends React.Component{
 			<View style={ styles.container }>
 				<ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
 					<Text style={styles.title}>PaTruco!</Text>
-					
+
 					<View style={styles.row}>
 						<View style={styles.columnLeft}>
 							<TextInput onChangeText={val => this.setName(0, val)} style={styles.input} value={this.state.teams[0].name} />
@@ -125,7 +124,7 @@ export default class Points extends React.Component{
 							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(0, this.state.turnPoints)} />
 						</View>
 
-						{/* <Image source={duckImage} style={styles.centerImage} /> */}
+						<Image source={duckImage} style={styles.centerImage} />
 
 						<View style={styles.columnRight}>
 							<TextInput onChangeText={val => this.setName(1, val)} style={styles.input} value={this.state.teams[1].name} />
@@ -178,8 +177,6 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		height: 40,
-		borderColor: 'red',
-		borderWidth: 1,
 		color: 'white',
 		textAlign: 'center',
 		marginTop: 10,
@@ -195,8 +192,9 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	centerImage: {
-		width: 100,
-		height: 100,
-		marginTop: 50,
+		width: 220,
+		height: 220,
+		resizeMode: 'contain',
+		marginTop: 150,
 	},
 });
