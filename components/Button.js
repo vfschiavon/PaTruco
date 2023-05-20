@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
 		height: 25,
 		justifyContent: 'center',
 		marginBottom: 5,
+		borderColor: 'black',
+		borderWidth: 2,
 	},
 	buttonAdd: {
 		borderRadius: 15,
@@ -57,6 +59,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderRadius: 10,
 		marginBottom: 10,
+		borderColor: 'black',
+		borderWidth: 3,
 	},
 	buttonReset: {
 		backgroundColor: '#efefef',
@@ -66,6 +70,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 10,
+		borderColor: 'black',
+		borderWidth: 2,
 	},
 	text: {
 		color: 'white',
