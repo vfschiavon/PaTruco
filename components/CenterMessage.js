@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native'
 
 
 const CenterMessage = ({ message }) => (
-	<View style={styles.emptyContainer}>
+	<View>
 		<Text style={styles.message}>
 			{message}
 		</Text>
@@ -12,14 +12,10 @@ const CenterMessage = ({ message }) => (
 
 
 const styles = StyleSheet.create({
-	emptyContainer: {
-		padding: 10,
-		borderBottomWidth: 2,
-		borderBottomColor: '#1976D2',
-	},
 	message: {
 		alignSelf: 'center',
 		fontSize: 20,
+		color: 'gray'
 	},
 })
 
