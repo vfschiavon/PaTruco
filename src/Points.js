@@ -118,22 +118,32 @@ export default class Points extends React.Component{
 						<TextInput onChangeText={val => this.setName(0, val)} style={styles.input} value={this.state.teams[0].name} />
 						<Text style={styles.points}>{this.state.teams[0].points}</Text>
 						<Text style={styles.gamesWon}>{this.state.teams[0].gamesWon}</Text>
-						<Button type='sub' text='-' func={() => this.subPoint(0)} />
-						<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(0, this.state.turnPoints)} />
 					</View>
 
 					<View style={styles.columnRight}>
 						<TextInput onChangeText={val => this.setName(1, val)} style={styles.input} value={this.state.teams[1].name} />
 						<Text style={styles.points}>{this.state.teams[1].points}</Text>
 						<Text style={styles.gamesWon}>{this.state.teams[1].gamesWon}</Text>
-						<Button type='sub' text='-' func={() => this.subPoint(1)} />
-						<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(1, this.state.turnPoints)} />
 					</View>
 				</View>
 
 				<View style={styles.columnCenter}>
-					<Button type='call' text={this.state.turnNextCall} func={() => this.call()} />
-					<Button type='reset' text='Reiniciar' func={() => this.resetAll()} /> 
+					<View style={styles.row}>
+						<View style={styles.columnLeft}>
+							<Button type='sub' text='-' func={() => this.subPoint(0)} />
+							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(0, this.state.turnPoints)} />
+						</View>
+
+						<View style={styles.columnRight}>
+							<Button type='sub' text='-' func={() => this.subPoint(1)} />
+							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(1, this.state.turnPoints)} />
+						</View>
+					</View>
+
+					<View style={styles.centerButtons}>
+						<Button type='call' text={this.state.turnNextCall} func={() => this.call()} />
+						<Button type='reset' text='Reiniciar' func={() => this.resetAll()} /> 
+					</View>
 				</View>
 			</ImageBackground>
 		);
@@ -165,8 +175,10 @@ const styles = StyleSheet.create({
 	},
 	columnCenter: {
 		flex: 1,
-		alignItems: 'center',
 		justifyContent: 'flex-end',
+	},
+	centerButtons: {
+		alignItems: 'center',
 	},
 	input: {
 		height: 40,
@@ -185,11 +197,12 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	centerImage: {
-		width: 250,
-		height: 250,
+		width: '50%',
+		height: '50%',
 		resizeMode: 'contain',
-		marginTop: 230,
 		position: 'absolute',
 		alignSelf: 'center',
+		top: '30%',
+		transform: [{ translateY: '-20%' }],
 	},
 });
