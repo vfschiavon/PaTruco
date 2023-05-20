@@ -83,7 +83,7 @@ export default class Points extends React.Component{
 		}
 	}
 
-	resetAll = () => {
+	resetAllPoints = () => {
 		this.setState({ turnPoints: 1, turnNextCall: 'Truco',
 			teams: [
 				{ ...this.state.teams[0], points: 0, gamesWon: 0 },
@@ -142,7 +142,7 @@ export default class Points extends React.Component{
 
 					<View style={styles.centerButtons}>
 						<Button type='call' text={this.state.turnNextCall} func={() => this.call()} />
-						<Button type='reset' text='Reiniciar' func={() => this.resetAll()} /> 
+						<Button type='reset' text='Reiniciar' func={() => this.resetAllPoints()} /> 
 					</View>
 				</View>
 			</ImageBackground>
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
 		resizeMode: 'contain',
 		position: 'absolute',
 		alignSelf: 'center',
-		top: '30%',
-		transform: [{ translateY: '-20%' }],
+		top: '20%',
+		// transform: [{ translateY: '-20%' }],
 	},
 });
