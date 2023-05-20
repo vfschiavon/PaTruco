@@ -3,7 +3,7 @@ import { ImageBackground, StyleSheet, Text, TextInput, Image, View, Alert } from
 
 import Button from '../components/Button'
 
-const backgroundImage = require('../assets/background/dark-1.png');
+const backgroundImage = require('../assets/background/medium.png');
 const duckImage = require('../assets/duck/walking-duck-frame.png');
 const duckGif = require('../assets/duck/walking-duck.gif');
 
@@ -50,6 +50,7 @@ export default class Points extends React.Component{
 	}
 
 	addPoints = (team, turnPoints) => {
+		if (this.state.teams[0].name === '' || this.state.teams[1].name === '') { alert("O nome do time não pode ser vazio!"); return; }
 		if (this.state.teams[team].points + turnPoints < 12) {
 			this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco',
 				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points + turnPoints } }
@@ -107,44 +108,39 @@ export default class Points extends React.Component{
 
 	render() {
 		return (
-			<View style={ styles.container }>
-				<ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
-					<Text style={styles.title}>PaTruco!</Text>
+			<ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
+				<Text style={styles.title}>PaTruco!</Text>
 
-					<View style={styles.row}>
-						<View style={styles.columnLeft}>
-							<TextInput onChangeText={val => this.setName(0, val)} style={styles.input} value={this.state.teams[0].name} />
-							<Text style={styles.points}>{this.state.teams[0].points}</Text>
-							<Text style={styles.gamesWon}>{this.state.teams[0].gamesWon}</Text>
-							<Button type='sub' text='-' func={() => this.subPoint(0)} />
-							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(0, this.state.turnPoints)} />
-						</View>
+				<Image source={duckGif} style={styles.centerImage} />
 
-						<Image source={duckGif} style={styles.centerImage} />
-
-						<View style={styles.columnRight}>
-							<TextInput onChangeText={val => this.setName(1, val)} style={styles.input} value={this.state.teams[1].name} />
-							<Text style={styles.points}>{this.state.teams[1].points}</Text>
-							<Text style={styles.gamesWon}>{this.state.teams[1].gamesWon}</Text>
-							<Button type='sub' text='-' func={() => this.subPoint(1)} />
-							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(1, this.state.turnPoints)} />
-						</View>
+				<View style={styles.row}>
+					<View style={styles.columnLeft}>
+						<TextInput onChangeText={val => this.setName(0, val)} style={styles.input} value={this.state.teams[0].name} />
+						<Text style={styles.points}>{this.state.teams[0].points}</Text>
+						<Text style={styles.gamesWon}>{this.state.teams[0].gamesWon}</Text>
+						<Button type='sub' text='-' func={() => this.subPoint(0)} />
+						<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(0, this.state.turnPoints)} />
 					</View>
 
-					<View style={styles.columnCenter}>
-						<Button type='call' text={this.state.turnNextCall} func={() => this.call()} />
-						<Button type='reset' text='Reiniciar' func={() => this.resetAll()} /> 
+					<View style={styles.columnRight}>
+						<TextInput onChangeText={val => this.setName(1, val)} style={styles.input} value={this.state.teams[1].name} />
+						<Text style={styles.points}>{this.state.teams[1].points}</Text>
+						<Text style={styles.gamesWon}>{this.state.teams[1].gamesWon}</Text>
+						<Button type='sub' text='-' func={() => this.subPoint(1)} />
+						<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(1, this.state.turnPoints)} />
 					</View>
-				</ImageBackground>
-			</View>
+				</View>
+
+				<View style={styles.columnCenter}>
+					<Button type='call' text={this.state.turnNextCall} func={() => this.call()} />
+					<Button type='reset' text='Reiniciar' func={() => this.resetAll()} /> 
+				</View>
+			</ImageBackground>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
 	background: {
 		width: '100%',
 		height: '100%',
@@ -168,8 +164,9 @@ const styles = StyleSheet.create({
 		marginRight: 20,
 	},
 	columnCenter: {
-		flexDirection: 'column',
+		flex: 1,
 		alignItems: 'center',
+		justifyContent: 'flex-end',
 	},
 	input: {
 		height: 40,
@@ -188,9 +185,11 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	centerImage: {
-		width: 220,
-		height: 220,
+		width: 250,
+		height: 250,
 		resizeMode: 'contain',
-		marginTop: 150,
+		marginTop: 230,
+		position: 'absolute',
+		alignSelf: 'center',
 	},
 });
