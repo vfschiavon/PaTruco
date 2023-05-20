@@ -1,51 +1,69 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 
 import CenterMessage from '../components/CenterMessage'
 
 
 export default class History extends React.Component {
-	render() {
-		const { turnHistory } = this.props
-		return (
-			<ScrollView contentContainerStyle={[!turnHistory.length && { flex: 1 }]}>
-				<View style={[!turnHistory.length && { justifyContent: 'center', flex: 1 }]}>
-					{
-						!turnHistory.length && <CenterMessage message="Sem histórico de rodadas" />
-					}
-					{
-						turnHistory.map((turnWinner, index) => (
-							<View key={index} style={styles.turnHistory}>
-								<View style={styles.pointsHistoryTeam}>
-									<Text style={styles.pointsHistoryTeamName}>{turnWinner.name}</Text>
-								</View>
-							</View>
-						))
-					}
-				</View>
-			</ScrollView>
-		)
+	state = {
+		selectedTeam: null
 	}
+
+	handleTeamClick = (index) => {
+		this.setState((prevState) => ({
+			selectedTeam: prevState.selectedTeam === index ? null : index
+		}));
+	}
+
+	render() {
+    const { turnHistory } = this.props;
+    const { selectedTeam } = this.state;
+    return (
+      <ScrollView contentContainerStyle={[!turnHistory.length && { flex: 1 }]}>
+        <View style={[!turnHistory.length && { justifyContent: 'center', flex: 1 }]}>
+          {!turnHistory.length && <CenterMessage message="Sem histórico de rodadas" />}
+          {turnHistory.map((turnWinner, index) => (
+						<TouchableOpacity key={index} onPress={() => this.handleTeamClick(index)}>
+						<View
+							style={[
+								styles.turnHistory,
+								selectedTeam === index && styles.selectedTeam,
+							]}
+						>
+							<View style={styles.pointsHistoryTeam}>
+								<Text style={styles.pointsHistoryTeamName}>{turnWinner.name}</Text>
+							</View>
+							{selectedTeam === index && (
+								<View>
+									<Text>Points: {turnWinner.points}</Text>
+									<Text>Games won: {turnWinner.gamesWon}</Text>
+									<Text>Turn points: {turnWinner.turnPoints}</Text>
+								</View>
+							)}
+						</View>
+					</TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
+    )
+  }
 }
 
 
 const styles = StyleSheet.create({
 	turnHistory: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
+		flexDirection: 'column',
 		padding: 10,
-		borderBottomWidth: 2,
-		borderBottomColor: '#1976D2',
+		borderBottomWidth: 3,
+		borderBottomColor: '#205375',
 	},
 	pointsHistoryTeam: {
 		flexDirection: 'column',
 	},
 	pointsHistoryTeamName: {
-		alignSelf: 'center',
 		fontSize: 20,
 	},
-	pointsHistoryTeamPoints: {
-		alignSelf: 'center',
-		fontSize: 30,
-	},
+	selectedTeam: {
+    backgroundColor: '#a3b9c9',
+  }
 })
