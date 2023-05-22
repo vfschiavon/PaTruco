@@ -1,5 +1,6 @@
 import React from 'react'
 import { ImageBackground, StyleSheet, Text, TextInput, Image, View, Alert } from 'react-native';
+import * as Font from 'expo-font';
 
 import Button from '../components/Button'
 
@@ -25,6 +26,12 @@ export default class Points extends React.Component{
 				}]
 		}
 		this.showAlert = this.showAlert.bind(this);
+	}
+
+	async componentDidMount() {
+		await Font.loadAsync({
+			bobaCups: require('../assets/fonts/BobaCups.ttf')
+		});
 	}
 
 	submit = (team, turnPoints) => {
@@ -109,7 +116,7 @@ export default class Points extends React.Component{
 	render() {
 		return (
 			<ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
-				<Text style={styles.title}>PaTruco!</Text>
+				<Text style={styles.title}>PaTruco</Text>
 
 				<Image source={duckGif} style={styles.centerImage} />
 
@@ -156,10 +163,10 @@ const styles = StyleSheet.create({
 		height: '100%',
 	},
 	title: {
-		fontSize: 50,
-		color: 'white',
+		fontSize: 65,
+		fontFamily: 'bobaCups',
 		textAlign: 'center',
-		marginTop: 20,
+		marginTop: 40,
 	},
 	row: {
 		flexDirection: 'row',
@@ -167,11 +174,11 @@ const styles = StyleSheet.create({
 	},
 	columnLeft: {
 		flexDirection: 'column',
-		marginLeft: 20,
+		marginLeft: '5%',
 	},
 	columnRight: {
 		flexDirection: 'column',
-		marginRight: 20,
+		marginRight: '5%',
 	},
 	columnCenter: {
 		flex: 1,
@@ -181,13 +188,16 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	input: {
-		height: 40,
+		height: 'auto',
 		color: 'white',
 		textAlign: 'center',
+		maxWidth: 150,
+		alignSelf: 'center',
+		fontSize: 25,
 		marginTop: 10,
 	},
 	points: {
-		fontSize: 50,
+		fontSize: 60,
 		color: 'white',
 		textAlign: 'center',
 	},
@@ -203,6 +213,5 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		alignSelf: 'center',
 		top: '20%',
-		// transform: [{ translateY: '-20%' }],
 	},
 });
