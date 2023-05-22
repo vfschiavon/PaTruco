@@ -6,8 +6,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Points from './src/Points'
 import HistoryNavScreen from './src/HistoryNavScreen'
 
-const cards_outline = require('./assets/icons/cards-outline.png')
-const cards_solid = require('./assets/icons/cards-solid.png')
+const cards_outline = require('./assets/icons/duck-cards-outline.png')
+const cards_solid = require('./assets/icons/duck-cards-solid.png')
 const list_numbered_outline = require('./assets/icons/list-numbered-outline.png')
 
 const Tab = createMaterialBottomTabNavigator();
