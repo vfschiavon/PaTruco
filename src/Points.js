@@ -59,27 +59,18 @@ export default class Points extends React.Component{
 	addPoints = (team, turnPoints) => {
 		if (this.state.teams[0].name === '' || this.state.teams[1].name === '') { alert("O nome do time não pode ser vazio!"); return; }
 		if (this.state.teams[team].points + turnPoints < 12) {
-			this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco',
+			return this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco',
 				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points + turnPoints } }
 			}, () => { this.submit(team, turnPoints) });
-		} else {
-			if (team === 0) {
-				this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
-					teams: {
-						[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
-						[1]: { ...this.state.teams[1], points: 0 }
-					}
-				}, () => { this.submit(team, turnPoints) });
-			} else {
-				this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
-					teams: {
-						[0]: { ...this.state.teams[0], points: 0 },
-						[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 }
-					}
-				}, () => { this.submit(team, turnPoints) });
-			}
-			this.showAlert('Parabéns ' + this.state.teams[team].name + '!');
 		}
+		const otherTeam = !team ? 1 : 0;
+		this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
+			teams: {
+				[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
+				[otherTeam]: { ...this.state.teams[otherTeam], points: 0 }
+			}
+		}, () => { this.submit(team, turnPoints) });
+		this.showAlert('Parabéns ' + this.state.teams[team].name + '!');
 	}
 
 	subPoint = (team) => {
@@ -100,17 +91,14 @@ export default class Points extends React.Component{
 	}
 
 	call = () => {
-		if (this.state.turnPoints === 1) {
-			this.setState({ ...this.state, turnPoints: 3, turnNextCall: 'Seis' });
-		} else if (this.state.turnPoints === 3) {
-			this.setState({ ...this.state, turnPoints: 6, turnNextCall: 'Nove' });
-		} else if (this.state.turnPoints === 6) {
-			this.setState({ ...this.state, turnPoints: 9, turnNextCall: 'Doze' });
-		} else if (this.state.turnPoints === 9) {
-			this.setState({ ...this.state, turnPoints: 12, turnNextCall: 'Um' });
-		} else if (this.state.turnPoints === 12) {
-			this.setState({ ...this.state, turnPoints: 1, turnNextCall: 'Truco' });
+		const pointsInfo = {
+			[1]: { turnPoints: 3, turnNextCall: 'Seis' },
+			[3]: { turnPoints: 6, turnNextCall: 'Nove' },
+			[6]: { turnPoints: 9, turnNextCall: 'Doze' },
+			[9]: { turnPoints: 12, turnNextCall: 'Um' },
+			[12]: { turnPoints: 1, turnNextCall: 'Truco' }
 		}
+		this.setState({ ...this.state, ...pointsInfo[this.state.turnPoints] });
 	}
 
 	render() {
