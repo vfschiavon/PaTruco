@@ -1,9 +1,10 @@
 import React from 'react'
-import { ImageBackground, View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { ImageBackground, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
 
 import CenterMessage from '../components/CenterMessage'
 
 const backgroundImage = require('../assets/background/medium.png');
+const trashCan = require('../assets/icons/trash-can.png');
 
 
 export default class GameHistory extends React.Component {
@@ -29,6 +30,12 @@ export default class GameHistory extends React.Component {
 							</TouchableOpacity>
 						</View>
 					))}
+					<TouchableOpacity onPress={() => this.props.clearGameHistory()} style={styles.column}>
+						<View style={styles.gameBox}>
+							<Text style={[styles.gameWinner, {alignSelf: 'center'}]}>Limpar histórico</Text>
+							<Image style={{ width: 30, height: 30, alignSelf: 'center' }} source={trashCan} />
+						</View>
+					</TouchableOpacity>
 				</ScrollView>
 			</ImageBackground>
     )
@@ -43,7 +50,7 @@ const styles = StyleSheet.create({
 	},
 	column: {
 		flex: 1,
-		flexDirection: 'columns',
+		flexDirection: 'column',
 		justifyContent: 'space-between',
 		marginVertical: 15,
 	},
