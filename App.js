@@ -71,7 +71,7 @@ export default class App extends React.Component{
   render() {
     return (
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="Histórico" >
+        <Tab.Navigator initialRouteName="Contador" >
           <Tab.Screen name="Contador"
             options={{
               tabBarIcon: ({ focused}) => (
