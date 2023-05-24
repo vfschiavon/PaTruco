@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageBackground, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { ImageBackground, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native'
 
 import CenterMessage from '../components/CenterMessage'
 
@@ -8,8 +8,17 @@ const trashCan = require('../assets/icons/trash-can.png');
 
 
 export default class GameHistory extends React.Component {
+
 	navigate = (item) => {
 		this.props.navigation.navigate('Rodadas', { turnHistory: item })
+	}
+
+	showAlertClearGame = () => {
+		Alert.alert(
+			'Limpar histórico?',
+			'Isso apagará todos os dados do histórico. Deseja continuar?',
+			[{text: 'Cancelar', style: 'cancel'}, {text: 'Ok', onPress: () => this.props.clearGameHistory(), style: 'destructive'}]
+		)
 	}
 
 	render() {
@@ -29,7 +38,7 @@ export default class GameHistory extends React.Component {
 							</TouchableOpacity>
 						</View>
 					))}
-					<TouchableOpacity onPress={() => this.props.clearGameHistory()} style={styles.column}>
+					<TouchableOpacity onPress={() => this.showAlertClearGame()} style={styles.column}>
 						<View style={styles.gameBox}>
 							<Text style={[styles.gameWinner, {alignSelf: 'center'}]}>Limpar histórico</Text>
 							<Image style={{ width: 30, height: 30, alignSelf: 'center' }} source={trashCan} />

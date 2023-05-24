@@ -25,7 +25,8 @@ export default class Points extends React.Component{
 					gamesWon: 0,
 				}]
 		}
-		this.showAlert = this.showAlert.bind(this);
+		this.showAlertWin = this.showAlertWin.bind(this);
+		this.showAlertResetTurn = this.showAlertResetTurn.bind(this);
 	}
 
 	async componentDidMount() {
@@ -44,11 +45,19 @@ export default class Points extends React.Component{
 		this.props.addTurnHistory(turnWinner, score);
 	}
 
-	showAlert (alertTitle) {
+	showAlertWin (winnerName) {
 		Alert.alert(
-			alertTitle,
-			'',
-			[{text: 'Ok', style: 'destructive'}]
+			'Parabéns ' + winnerName + '!',
+			winnerName + ' venceu a partida!',
+			[{text: 'Ok', style: 'default'}]
+		)
+	}
+
+	showAlertResetTurn () {
+		Alert.alert(
+			'Reiniciar rodada?',
+			'Isso apagará todos os dados dessa rodada. Deseja continuar?',
+			[{text: 'Cancelar', style: 'cancel'}, {text: 'Ok', onPress: () => this.resetTurn(), style: 'destructive'}]
 		)
 	}
 
@@ -80,7 +89,7 @@ export default class Points extends React.Component{
 								this.props.setGameFinished(this.state.teams[team].name)
 								this.addWin(team)
 							});
-		this.showAlert('Parabéns ' + this.state.teams[team].name + '!');
+		this.showAlertWin(this.state.teams[team].name);
 	}
 
 	subPoint = (team) => {
@@ -91,7 +100,7 @@ export default class Points extends React.Component{
 		}
 	}
 
-	resetAllPoints = () => {
+	resetTurn = () => {
 		this.setState({ turnPoints: 1, turnNextCall: 'Truco',
 			teams: [
 				{ ...this.state.teams[0], points: 0},
@@ -156,7 +165,7 @@ export default class Points extends React.Component{
 
 					<View style={styles.centerButtons}>
 						<Button text={this.state.turnNextCall} func={() => this.call()} style={styles.buttonCall} />
-						<Button text='Reiniciar' func={() => this.resetAllPoints()} style={styles.buttonReset} /> 
+						<Button text='Reiniciar' func={() => this.showAlertResetTurn()} style={styles.buttonReset} /> 
 					</View>
 				</View>
 			</ImageBackground>
