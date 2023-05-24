@@ -40,7 +40,8 @@ export default class Points extends React.Component{
 			points: this.state.teams[team].points,
 			turnPoints: turnPoints,
 		}
-		this.props.addTurnHistory(turnWinner);
+		const score = this.state.teams[0].points + ' x ' + this.state.teams[1].points;
+		this.props.addTurnHistory(turnWinner, score);
 	}
 
 	showAlert (alertTitle) {
