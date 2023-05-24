@@ -1,14 +1,18 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import History from './History'
+import GameHistory from './GameHistory'
+import TurnHistory from './TurnHistory'
 
 const HistoryNav = createStackNavigator();
 
 
-const HistoryNavScreen = ({ turnHistory }) => (
+const HistoryNavScreen = ({ gameHistory }) => (
 	<HistoryNav.Navigator>
-		<HistoryNav.Screen name="Vencedores das rodadas">
-			{props => <History {...props} turnHistory={turnHistory} />}
+		<HistoryNav.Screen name="Jogos">
+			{props => <GameHistory {...props} gameHistory={gameHistory} />}
+		</HistoryNav.Screen>
+		<HistoryNav.Screen name="Rodadas">
+			{props => <TurnHistory {...props} />}
 		</HistoryNav.Screen>
 	</HistoryNav.Navigator>
 )
