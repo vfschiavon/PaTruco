@@ -38,7 +38,6 @@ export default class Points extends React.Component{
 		const turnWinner = {
 			name: this.state.teams[team].name,
 			points: this.state.teams[team].points,
-			gamesWon: this.state.teams[team].gamesWon,
 			turnPoints: turnPoints,
 		}
 		this.props.addTurnHistory(turnWinner);
@@ -69,7 +68,7 @@ export default class Points extends React.Component{
 				[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
 				[otherTeam]: { ...this.state.teams[otherTeam], points: 0 }
 			}
-		}, () => { this.submit(team, turnPoints) });
+		}, () => { this.submit(team, turnPoints), this.props.setGameFinished(this.state.teams[team].name) });
 		this.showAlert('Parabéns ' + this.state.teams[team].name + '!');
 	}
 
@@ -87,7 +86,7 @@ export default class Points extends React.Component{
 				{ ...this.state.teams[0], points: 0, gamesWon: 0 },
 				{ ...this.state.teams[1], points: 0, gamesWon: 0 }
 			]
-		}, () => this.props.resetTurnHistory() );
+		}, () => this.props.resetTurn() );
 	}
 
 	call = () => {
