@@ -18,6 +18,7 @@ export default class App extends React.Component{
       turnHistory: [],
       winnerName: '',
       dateTime: '',
+      score: ''
     }]
   }
 
@@ -48,6 +49,7 @@ export default class App extends React.Component{
       turnHistory: [],
       winnerName: '',
       dateTime: '',
+      score: ''
     })
 
     this.setState({ gameHistory }, () => {console.log(this.state.gameHistory)})
@@ -63,7 +65,9 @@ export default class App extends React.Component{
   clearGameHistory = () => {
     this.setState({ gameHistory: [{
       turnHistory: [],
-      finished: false,
+      winnerName: '',
+      dateTime: '',
+      score: ''
       }]
     })
   }
