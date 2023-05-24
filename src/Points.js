@@ -52,6 +52,16 @@ export default class Points extends React.Component{
 		)
 	}
 
+	addWin = (team) => {
+		const otherTeam = !team ? 1 : 0;
+		this.setState({ ...this.state,
+			teams: {
+				[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
+				[otherTeam]: { ...this.state.teams[otherTeam], points: 0 }
+			}
+		});
+	}
+
 	setName = (team, name) => {
 		this.setState({ ...this.state, teams: { ...this.state.teams, [team]: { ...this.state.teams[team], name: name } } });
 	}
@@ -65,11 +75,11 @@ export default class Points extends React.Component{
 		}
 		const otherTeam = !team ? 1 : 0;
 		this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
-			teams: {
-				[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
-				[otherTeam]: { ...this.state.teams[otherTeam], points: 0 }
-			}
-		}, () => { this.submit(team, turnPoints), this.props.setGameFinished(this.state.teams[team].name) });
+			teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: 12 } }
+		}, () => {  this.submit(team, turnPoints),
+								this.props.setGameFinished(this.state.teams[team].name)
+								this.addWin(team)
+							});
 		this.showAlert('Parabéns ' + this.state.teams[team].name + '!');
 	}
 
