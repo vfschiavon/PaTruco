@@ -14,25 +14,64 @@ const Tab = createMaterialBottomTabNavigator();
 
 export default class App extends React.Component{
   state = {
-    turnHistory: []
+    gameHistory: [{
+      turnHistory: [],
+      winnerName: '',
+      dateTime: '',
+    }]
   }
 
   addTurnHistory = (turnWinner) => {
-    const turnHistory = this.state.turnHistory
-    turnHistory.push(turnWinner)
-    this.setState({ turnHistory })
+    const lastPos = this.state.gameHistory.length - 1
+    const gameHistory = [...this.state.gameHistory]
+    gameHistory[lastPos].turnHistory.push(turnWinner)
+    this.setState({ gameHistory })
 
-    console.log(this.state.turnHistory)
+    console.log(this.state.gameHistory)
   }
 
-  resetTurnHistory = () => {
-    this.setState({ turnHistory: [] })
+  getFormattedDate = () => {
+    const date = new Date();
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const formattedDate = date.toLocaleDateString('en-GB', options);
+    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    const dateTimeString = `${formattedDate} - ${formattedTime}`;
+    return dateTimeString
+  }
+
+  setGameFinished = ( winnerName ) => {
+    const lastPos = this.state.gameHistory.length - 1
+    const gameHistory = [...this.state.gameHistory]
+    gameHistory[lastPos].winnerName = winnerName
+    gameHistory[lastPos].dateTime = this.getFormattedDate();
+    gameHistory.push({
+      turnHistory: [],
+      winnerName: '',
+      dateTime: '',
+    })
+
+    this.setState({ gameHistory }, () => {console.log(this.state.gameHistory)})
+  }
+
+  resetTurn = () => {
+    const lastPos = this.state.gameHistory.length - 1
+    const gameHistory = [...this.state.gameHistory]
+    gameHistory[lastPos].turnHistory = []
+    this.setState({ gameHistory })
+  }
+
+  clearGameHistory = () => {
+    this.setState({ gameHistory: [{
+      turnHistory: [],
+      finished: false,
+      }]
+    })
   }
 
   render() {
     return (
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="Contador" >
+        <Tab.Navigator initialRouteName="Histórico" >
           <Tab.Screen name="Contador"
             options={{
               tabBarIcon: ({ focused}) => (
@@ -46,7 +85,7 @@ export default class App extends React.Component{
               )
             }}
           >
-            {() => <Points addTurnHistory={this.addTurnHistory} resetTurnHistory={this.resetTurnHistory} />}
+            {() => <Points addTurnHistory={this.addTurnHistory} setGameFinished={this.setGameFinished} resetTurn={this.resetTurn} />}
           </Tab.Screen>
           <Tab.Screen name="Histórico"
             options={{
@@ -61,7 +100,7 @@ export default class App extends React.Component{
               )
             }}
           >
-            {props => <HistoryNavScreen {...props} turnHistory={this.state.turnHistory} />}
+            {props => <HistoryNavScreen {...props} gameHistory={this.state.gameHistory} />}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
