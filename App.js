@@ -6,9 +6,9 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Points from './src/Points'
 import HistoryNavScreen from './src/HistoryNavScreen'
 
-const cards_outline = require('./assets/icons/duck-cards-outline.png')
-const cards_solid = require('./assets/icons/duck-cards-solid.png')
-const list_numbered_outline = require('./assets/icons/list-numbered-outline.png')
+const cardsOutline = require('./assets/icons/duck-cards-outline.png')
+const cardsSolid = require('./assets/icons/duck-cards-solid.png')
+const listNumberedOutline = require('./assets/icons/list-numbered-outline.png')
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -18,14 +18,15 @@ export default class App extends React.Component{
       turnHistory: [],
       winnerName: '',
       dateTime: '',
-      score: ''
+      score: '0 x 0'
     }]
   }
 
-  addTurnHistory = (turnWinner) => {
+  addTurnHistory = (turnWinner, score) => {
     const lastPos = this.state.gameHistory.length - 1
     const gameHistory = [...this.state.gameHistory]
     gameHistory[lastPos].turnHistory.push(turnWinner)
+    gameHistory[lastPos].score = score
     this.setState({ gameHistory })
 
     console.log(this.state.gameHistory)
@@ -49,7 +50,7 @@ export default class App extends React.Component{
       turnHistory: [],
       winnerName: '',
       dateTime: '',
-      score: ''
+      score: '0 x 0'
     })
 
     this.setState({ gameHistory }, () => {console.log(this.state.gameHistory)})
@@ -59,6 +60,7 @@ export default class App extends React.Component{
     const lastPos = this.state.gameHistory.length - 1
     const gameHistory = [...this.state.gameHistory]
     gameHistory[lastPos].turnHistory = []
+    gameHistory[lastPos].score = '0 x 0'
     this.setState({ gameHistory })
   }
 
@@ -67,7 +69,7 @@ export default class App extends React.Component{
       turnHistory: [],
       winnerName: '',
       dateTime: '',
-      score: ''
+      score: '0 x 0'
       }]
     })
   }
@@ -81,7 +83,7 @@ export default class App extends React.Component{
               tabBarIcon: ({ focused}) => (
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <Image
-                    source={focused ? cards_solid : cards_outline}
+                    source={focused ? cardsSolid : cardsOutline}
                     resizeMode="contain"
                     style={{ width: 25, height: 25, tintColor: focused ? 'black' : 'gray' }}
                   />
@@ -96,7 +98,7 @@ export default class App extends React.Component{
               tabBarIcon: ({ focused}) => (
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <Image
-                    source={focused ? list_numbered_outline : list_numbered_outline}
+                    source={focused ? listNumberedOutline : listNumberedOutline}
                     resizeMode="contain"
                     style={{ width: 25, height: 25, tintColor: focused ? 'black' : 'gray' }}
                   />
@@ -104,7 +106,7 @@ export default class App extends React.Component{
               )
             }}
           >
-            {props => <HistoryNavScreen {...props} gameHistory={this.state.gameHistory} />}
+            {props => <HistoryNavScreen {...props} gameHistory={this.state.gameHistory} clearGameHistory={this.clearGameHistory} />}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
