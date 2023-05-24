@@ -15,19 +15,22 @@ export default class GameHistory extends React.Component {
 	render() {
     const { gameHistory } = this.props;
     return (
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
-				<ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
+			<ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
+				<ScrollView contentContainerStyle={{ marginHorizontal: 15, marginVertical: 20 }} showsVerticalScrollIndicator={false}>
 					{gameHistory.slice().reverse().map((game, index) => (
 						<View key={index} style={styles.gameBox}>
 							<TouchableOpacity onPress={() => this.navigate(game.turnHistory)} style={styles.column}>
 								{game.winnerName === '' && <CenterMessage message="Em andamento" />}
 								{game.winnerName !== '' && <Text style={styles.gameWinner}>{game.winnerName}</Text>}
-								{game.dateTime !== '' && <Text style={styles.gameDate}>{game.dateTime}</Text>}
+								<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+									{game.score !== '' && <Text style={styles.gameSubText}>Total: {game.score}</Text>}
+									{game.dateTime !== '' && <Text style={styles.gameSubText}>{game.dateTime}</Text>}
+								</View>
 							</TouchableOpacity>
 						</View>
 					))}
-				</ImageBackground>
-      </ScrollView>
+				</ScrollView>
+			</ImageBackground>
     )
   }
 }
@@ -45,9 +48,14 @@ const styles = StyleSheet.create({
 		marginVertical: 15,
 	},
 	gameBox: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		borderCollor: '#000',
+		borderWidth: 3,
 		height: 100,
 		marginHorizontal: 15,
-		marginVertical: 20,
+		marginTop: 20,
+		marginBottom: 10,
 		borderRadius: 10,
 		paddingHorizontal: 20,
 		backgroundColor: '#fff',
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
 	gameWinner: {
 		fontSize: 30,
 	},
-	gameDate: {
+	gameSubText: {
 		fontSize: 15,
 	}
 })
