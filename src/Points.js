@@ -5,7 +5,7 @@ import * as Font from 'expo-font';
 import Button from '../components/Button'
 
 const backgroundImage = require('../assets/background/medium.png');
-const duckImage = require('../assets/duck/walking-duck-frame.png');
+const duckPaw = require('../assets/duck/duck-paw.png');
 const duckGif = require('../assets/duck/walking-duck.gif');
 
 
@@ -83,8 +83,8 @@ export default class Points extends React.Component{
 	resetAllPoints = () => {
 		this.setState({ turnPoints: 1, turnNextCall: 'Truco',
 			teams: [
-				{ ...this.state.teams[0], points: 0, gamesWon: 0 },
-				{ ...this.state.teams[1], points: 0, gamesWon: 0 }
+				{ ...this.state.teams[0], points: 0},
+				{ ...this.state.teams[1], points: 0}
 			]
 		}, () => this.props.resetTurn() );
 	}
@@ -124,19 +124,28 @@ export default class Points extends React.Component{
 				<View style={styles.columnCenter}>
 					<View style={styles.row}>
 						<View style={styles.columnLeft}>
-							<Button type='sub' text='-' func={() => this.subPoint(0)} />
-							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(0, this.state.turnPoints)} />
+							<Button text='-' func={() => this.subPoint(0)} style={styles.buttonSub} />
+							<Button
+								image={duckPaw}
+								text={this.state.turnPoints}
+								func={() => this.addPoints(0, this.state.turnPoints)}
+								style={styles.buttonAdd} />
 						</View>
 
 						<View style={styles.columnRight}>
-							<Button type='sub' text='-' func={() => this.subPoint(1)} />
-							<Button type='add' text={this.state.turnPoints} func={() => this.addPoints(1, this.state.turnPoints)} />
+							<Button text='-' func={() => this.subPoint(1)} style={styles.buttonSub} />
+							<Button 
+								image = {duckPaw}
+								text={this.state.turnPoints}
+								func={() => this.addPoints(1, this.state.turnPoints)}
+								style={styles.buttonAdd}
+							/>
 						</View>
 					</View>
 
 					<View style={styles.centerButtons}>
-						<Button type='call' text={this.state.turnNextCall} func={() => this.call()} />
-						<Button type='reset' text='Reiniciar' func={() => this.resetAllPoints()} /> 
+						<Button text={this.state.turnNextCall} func={() => this.call()} style={styles.buttonCall} />
+						<Button text='Reiniciar' func={() => this.resetAllPoints()} style={styles.buttonReset} /> 
 					</View>
 				</View>
 			</ImageBackground>
@@ -200,5 +209,43 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		alignSelf: 'center',
 		top: '20%',
+	},
+	buttonSub: {
+		backgroundColor: '#ff4d4d',
+		borderRadius: 50,
+		width: 25,
+		height: 25,
+		justifyContent: 'center',
+		marginBottom: 5,
+		borderColor: 'black',
+		borderWidth: 2,
+	},
+	buttonAdd: {
+		borderRadius: 15,
+		width: 120,
+		height: 120,
+		marginBottom: 10,
+	},
+	buttonCall: {
+		backgroundColor: '#f1c40f',
+		width: 350,
+		height: 70,
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 10,
+		marginBottom: 10,
+		borderColor: 'black',
+		borderWidth: 3,
+	},
+	buttonReset: {
+		backgroundColor: '#efefef',
+		width: 200,
+		height: 20,
+		marginBottom: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: 10,
+		borderColor: 'black',
+		borderWidth: 2,
 	},
 });
