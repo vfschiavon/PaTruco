@@ -28,8 +28,6 @@ export default class App extends React.Component{
     gameHistory[lastPos].turnHistory.push(turnWinner)
     gameHistory[lastPos].score = score
     this.setState({ gameHistory })
-
-    console.log(this.state.gameHistory)
   }
 
   getFormattedDate = () => {
@@ -53,7 +51,7 @@ export default class App extends React.Component{
       score: '0 x 0'
     })
 
-    this.setState({ gameHistory }, () => {console.log(this.state.gameHistory)})
+    this.setState({ gameHistory })
   }
 
   resetTurn = () => {

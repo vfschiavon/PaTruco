@@ -10,7 +10,6 @@ const trashCan = require('../assets/icons/trash-can.png');
 export default class GameHistory extends React.Component {
 	navigate = (item) => {
 		this.props.navigation.navigate('Rodadas', { turnHistory: item })
-		console.log(item)
 	}
 
 	render() {
