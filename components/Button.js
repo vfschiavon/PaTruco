@@ -1,7 +1,6 @@
 import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, Image, View } from 'react-native'
 
-
-function Button({ image, text, func, style }) {
+const Button = ({ image, text, func, style }) => {
 	if (image) {
 		return (
 			<TouchableOpacity onPress={func}>
