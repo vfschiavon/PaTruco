@@ -14,8 +14,8 @@ const CenterMessage = ({ message }) => (
 const styles = StyleSheet.create({
 	message: {
 		alignSelf: 'center',
-		fontSize: 20,
-		color: 'gray'
+		fontSize: 30,
+		color: 'black'
 	},
 })
 
