@@ -45,6 +45,8 @@ const styles = StyleSheet.create({
 	},
 	turnBoard: {
 		flex: 1,
+		borderColor: '#000',
+		borderWidth: 3,
 		marginHorizontal: 15,
 		marginVertical: 20,
 		borderRadius: 10,
