@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 import { Image, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-import Points from './src/Points'
-import HistoryNavScreen from './src/HistoryNavScreen'
+import Points from './src/Points';
+import HistoryNavScreen from './src/HistoryNavScreen';
 
-const cardsOutline = require('./assets/icons/duck-cards-outline.png')
-const cardsSolid = require('./assets/icons/duck-cards-solid.png')
-const listNumberedOutline = require('./assets/icons/list-numbered-outline.png')
+const cardsOutline = require('./assets/icons/duck-cards-outline.png');
+const cardsSolid = require('./assets/icons/duck-cards-solid.png');
+const listNumberedOutline = require('./assets/icons/list-numbered-outline.png');
 
 const Tab = createMaterialBottomTabNavigator();
 

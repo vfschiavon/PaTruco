@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, Image, View } from 'react-native'
+import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, Image, View } from 'react-native';
 
 const Button = ({ image, text, func, style }) => {
 	if (image) {

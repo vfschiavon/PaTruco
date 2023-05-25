@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import GameHistory from './GameHistory'
-import TurnHistory from './TurnHistory'
+import GameHistory from './GameHistory';
+import TurnHistory from './TurnHistory';
 
 const HistoryNav = createStackNavigator();
 
