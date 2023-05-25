@@ -160,7 +160,8 @@ export default class Points extends React.Component{
 
 					<View style={styles.centerButtons}>
 						<Button text={this.state.turnNextCall} func={() => this.call()} style={styles.buttonCall} />
-						<Button text='Reiniciar' func={() => this.showAlertResetTurn()} style={styles.buttonReset} /> 
+						{/* <Button text='Reiniciar' func={() => this.showAlertResetTurn()} style={styles.buttonReset} /> */}
+						<Button text='Reiniciar' func={() => this.resetTurn()} style={styles.buttonReset} />
 					</View>
 				</View>
 			</ImageBackground>

@@ -38,7 +38,8 @@ export default class GameHistory extends React.Component {
 							</TouchableOpacity>
 						</View>
 					))}
-					<TouchableOpacity onPress={() => this.showAlertClearGame()} style={styles.column}>
+					{/* <TouchableOpacity onPress={() => this.showAlertClearGame()} style={styles.column}> */}
+					<TouchableOpacity onPress={() => this.props.clearGameHistory()} style={styles.column}>
 						<View style={styles.gameBox}>
 							<Text style={[styles.gameWinner, {alignSelf: 'center'}]}>Limpar histórico</Text>
 							<Image style={{ width: 30, height: 30, alignSelf: 'center' }} source={trashCan} />
