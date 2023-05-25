@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { ImageBackground, StyleSheet, Text, TextInput, Image, View, Alert } from 'react-native';
 import * as Font from 'expo-font';
 
-import Button from '../components/Button'
+import Button from '../components/Button';
 
 const backgroundImage = require('../assets/background/medium.png');
 const duckPaw = require('../assets/duck/duck-paw.png');
@@ -17,13 +17,12 @@ export default class Points extends React.Component{
 			turnNextCall: 'Truco',
 			teams: [{
 					name: 'Time 1',
-					points: 0,
-					gamesWon: 0,
+					points: 0
 				}, {
 					name: 'Time 2',
-					points: 0,
-					gamesWon: 0,
-				}]
+					points: 0
+				}
+			]
 		}
 		this.showAlertWin = this.showAlertWin.bind(this);
 		this.showAlertResetTurn = this.showAlertResetTurn.bind(this);
@@ -61,12 +60,11 @@ export default class Points extends React.Component{
 		)
 	}
 
-	addWin = (team) => {
-		const otherTeam = !team ? 1 : 0;
+	resetPoints = () => {
 		this.setState({ ...this.state,
 			teams: {
-				[team]: { ...this.state.teams[team], points: 0, gamesWon: this.state.teams[team].gamesWon + 1 },
-				[otherTeam]: { ...this.state.teams[otherTeam], points: 0 }
+				[0]: { ...this.state.teams[0], points: 0 },
+				[1]: { ...this.state.teams[1], points: 0 }
 			}
 		});
 	}
@@ -82,12 +80,11 @@ export default class Points extends React.Component{
 				teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: this.state.teams[team].points + turnPoints } }
 			}, () => { this.submit(team, turnPoints) });
 		}
-		const otherTeam = !team ? 1 : 0;
 		this.setState({ turnPoints: 1, turnNextCall: 'Truco', 
 			teams: { ...this.state.teams, [team]: { ...this.state.teams[team], points: 12 } }
 		}, () => {  this.submit(team, turnPoints),
 								this.props.setGameFinished(this.state.teams[team].name)
-								this.addWin(team)
+								this.resetPoints()
 							});
 		this.showAlertWin(this.state.teams[team].name);
 	}
@@ -131,13 +128,11 @@ export default class Points extends React.Component{
 					<View style={styles.columnLeft}>
 						<TextInput onChangeText={val => this.setName(0, val)} style={styles.input} value={this.state.teams[0].name} />
 						<Text style={styles.points}>{this.state.teams[0].points}</Text>
-						<Text style={styles.gamesWon}>{this.state.teams[0].gamesWon}</Text>
 					</View>
 
 					<View style={styles.columnRight}>
 						<TextInput onChangeText={val => this.setName(1, val)} style={styles.input} value={this.state.teams[1].name} />
 						<Text style={styles.points}>{this.state.teams[1].points}</Text>
-						<Text style={styles.gamesWon}>{this.state.teams[1].gamesWon}</Text>
 					</View>
 				</View>
 
@@ -214,11 +209,6 @@ const styles = StyleSheet.create({
 	},
 	points: {
 		fontSize: 60,
-		color: 'white',
-		textAlign: 'center',
-	},
-	gamesWon: {
-		fontSize: 20,
 		color: 'white',
 		textAlign: 'center',
 	},
