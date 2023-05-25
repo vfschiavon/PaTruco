@@ -1,7 +1,5 @@
-import React from 'react'
-import { ImageBackground, View, Text, StyleSheet, ScrollView } from 'react-native'
-
-import CenterMessage from '../components/CenterMessage'
+import React from 'react';
+import { ImageBackground, View, Text, StyleSheet, ScrollView } from 'react-native';
 
 const backgroundImage = require('../assets/background/medium.png');
 
@@ -14,7 +12,7 @@ export default class TurnHistory extends React.Component {
 				<View style={styles.turnBoard}>
 					<ScrollView contentContainerStyle={{ marginHorizontal: 15, marginVertical: 20 }} showsVerticalScrollIndicator={false}>
 						<View style={[!turnHistory.length && { justifyContent: 'center', flex: 1 }]}>
-						{!turnHistory.length && <CenterMessage message="Sem histórico de rodadas" />}
+						{!turnHistory.length && <Text style={[styles.gameWinner, {alignSelf: 'center'}]}>Nenhuma rodada jogada</Text>}
 							{turnHistory.map((turnWinner, index) => (
 								<View key={index} style={styles.turnHistory}>
 									<View style={styles.turnBox}>
@@ -77,5 +75,8 @@ const styles = StyleSheet.create({
 	},
 	pointsHistorySmall: {
 		fontSize: 10,
+	},
+	gameWinner: {
+		fontSize: 20,
 	},
 })

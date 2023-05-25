@@ -1,7 +1,5 @@
-import React from 'react'
-import { ImageBackground, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native'
-
-import CenterMessage from '../components/CenterMessage'
+import React from 'react';
+import { ImageBackground, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
 
 const backgroundImage = require('../assets/background/medium.png');
 const trashCan = require('../assets/icons/trash-can.png');
@@ -29,7 +27,7 @@ export default class GameHistory extends React.Component {
 					{gameHistory.slice().reverse().map((game, index) => (
 						<View key={index} style={styles.gameBox}>
 							<TouchableOpacity onPress={() => this.navigate(game.turnHistory)} style={styles.column}>
-								{game.winnerName === '' && <CenterMessage message="Em andamento" />}
+								{game.winnerName === '' && <Text style={styles.gameWinner}>Em andamento</Text>}
 								{game.winnerName !== '' && <Text style={styles.gameWinner}>{game.winnerName}</Text>}
 								<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
 									{game.score !== '' && <Text style={styles.gameSubText}>Total: {game.score}</Text>}
