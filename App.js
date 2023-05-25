@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
@@ -11,6 +11,7 @@ const cardsSolid = require('./assets/icons/duck-cards-solid.png');
 const listNumberedOutline = require('./assets/icons/list-numbered-outline.png');
 
 const Tab = createMaterialBottomTabNavigator();
+
 
 export default class App extends React.Component{
   state = {
@@ -39,7 +40,7 @@ export default class App extends React.Component{
     return dateTimeString
   }
 
-  setGameFinished = ( winnerName ) => {
+  setGameFinished = (winnerName) => {
     const lastPos = this.state.gameHistory.length - 1
     const gameHistory = [...this.state.gameHistory]
     gameHistory[lastPos].winnerName = winnerName
@@ -50,7 +51,6 @@ export default class App extends React.Component{
       dateTime: '',
       score: '0 x 0'
     })
-
     this.setState({ gameHistory })
   }
 
@@ -75,33 +75,22 @@ export default class App extends React.Component{
         <Tab.Navigator initialRouteName="Contador" >
           <Tab.Screen name="Contador"
             options={{
-              tabBarIcon: ({ focused}) => (
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <Image
-                    source={focused ? cardsSolid : cardsOutline}
-                    resizeMode="contain"
-                    style={{ width: 25, height: 25, tintColor: focused ? 'black' : 'gray' }}
-                  />
-                </View>
+              tabBarIcon: ({focused}) => (
+                <Image source={focused ? cardsSolid : cardsOutline} resizeMode="contain" style={{width: 25, height: 25, tintColor: focused ? '#000' : 'gray'}}/>
               )
             }}
           >
-            {() => <Points addTurnHistory={this.addTurnHistory} setGameFinished={this.setGameFinished} resetTurn={this.resetTurn} />}
+            {() => <Points addTurnHistory={this.addTurnHistory} setGameFinished={this.setGameFinished} resetTurn={this.resetTurn}/>}
           </Tab.Screen>
           <Tab.Screen name="Histórico"
             options={{
-              tabBarIcon: ({ focused}) => (
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <Image
-                    source={focused ? listNumberedOutline : listNumberedOutline}
-                    resizeMode="contain"
-                    style={{ width: 25, height: 25, tintColor: focused ? 'black' : 'gray' }}
-                  />
-                </View>
+              tabBarIcon: ({focused}) => (
+                // focused ? listNumberedSolid : listNumberedOutline
+                <Image source={listNumberedOutline} resizeMode="contain" style={{width: 25, height: 25, tintColor: focused ? '#000' : 'gray'}}/>
               )
             }}
           >
-            {props => <HistoryNavScreen {...props} gameHistory={this.state.gameHistory} clearGameHistory={this.clearGameHistory} />}
+            {props => <HistoryNavScreen {...props} gameHistory={this.state.gameHistory} clearGameHistory={this.clearGameHistory}/>}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
