@@ -63,13 +63,10 @@ export default class App extends React.Component{
   }
 
   clearGameHistory = () => {
-    this.setState({ gameHistory: [{
-      turnHistory: [],
-      winnerName: '',
-      dateTime: '',
-      score: '0 x 0'
-      }]
-    })
+    const gameHistory = [...this.state.gameHistory]
+    const lastPos = gameHistory.length - 1
+    const lastGame = gameHistory[lastPos]
+    this.setState({ gameHistory: [lastGame] })
   }
 
   render() {
