@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	callButtonText: {
-		fontSize: 40,
+		fontSize: 30,
 		color: '#FFF',
 		textAlign: 'center',
 		fontWeight: 'bold'
@@ -123,7 +123,7 @@ export const styles = StyleSheet.create({
 		marginTop: 15
 	},
 	resetButtonText: {
-		fontSize: 20,
+		fontSize: 15,
 		color: '#FFF',
 		textAlign: 'center',
 		fontWeight: 'bold'
@@ -138,7 +138,7 @@ export const styles = StyleSheet.create({
 		borderRadius: 25,
 	},
 	winnerNameBox: {
-		fontSize: 30,
+		fontSize: 25,
 		color: '#000'
 	},
 	subViewBox: {
@@ -156,7 +156,7 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-evenly'
 	},
 	trashButtonText: {
-		fontSize: 30,
+		fontSize: 25,
 		color: '#000',
 		alignSelf: 'center'
 	},
