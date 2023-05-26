@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TextInput, Image, View, Alert } from 'react-native';
 import * as Font from 'expo-font';
 
-import Button from '../components/Button';
+import Button from './Button';
 import { styles } from './styles';
 
 const duckPaw = require('../assets/duck/duck-paw.png');
