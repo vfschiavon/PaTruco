@@ -164,5 +164,43 @@ export const styles = StyleSheet.create({
 		width: 30,
 		height: 30,
 		alignSelf: 'center'
+	},
+	turnBoard: {
+		flex: 1,
+		padding: 15,
+		backgroundColor: '#FFF',
+		borderColor: '#000',
+		borderWidth: 3,
+		borderRadius: 25,
+		overflow: 'hidden'
+	},
+	emptyTurnView: {
+		flex: 1,
+		justifyContent: 'center'
+	},
+	turnView: {
+		flexDirection: 'column',
+		justifyContent: 'flex-start'
+	},
+	emptyTurnText: {
+		fontSize: 25,
+		color: '#000',
+		alignSelf: 'center'
+	},
+	turnBox: {
+		flexDirection: 'column',
+		marginBottom: 15,
+		borderColor: '#000',
+		borderBottomWidth: 1
+	},
+	turnBoxWinner: {
+		fontSize: 20,
+		color: '#000',
+		marginBottom: 5
+	},
+	turnBoxTotal: {
+		fontSize: 15,
+		color: '#000',
+		marginBottom: 3
 	}
 })
