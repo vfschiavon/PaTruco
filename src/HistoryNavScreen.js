@@ -6,13 +6,13 @@ import TurnHistory from './TurnHistory';
 const HistoryNav = createStackNavigator();
 
 
-const HistoryNavScreen = ({ gameHistory, clearGameHistory }) => (
+const HistoryNavScreen = ({gameHistory, clearGameHistory}) => (
 	<HistoryNav.Navigator>
 		<HistoryNav.Screen name="Jogos">
-			{props => <GameHistory {...props} gameHistory={gameHistory} clearGameHistory={clearGameHistory} />}
+			{props => <GameHistory {...props} gameHistory={gameHistory} clearGameHistory={clearGameHistory}/>}
 		</HistoryNav.Screen>
 		<HistoryNav.Screen name="Rodadas">
-			{props => <TurnHistory {...props} />}
+			{props => <TurnHistory {...props}/>}
 		</HistoryNav.Screen>
 	</HistoryNav.Navigator>
 )

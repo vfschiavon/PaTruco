@@ -27,18 +27,18 @@ export default class GameHistory extends React.Component {
 				<ScrollView showsVerticalScrollIndicator={false}>
 					{gameHistory.slice().reverse().map((game, index) => (
 						<TouchableOpacity key={index} onPress={() => this.navigate(game.turnHistory)} style={[styles.gameBox, styles.dropShadow]}>
-								{game.winnerName === '' && <Text style={styles.winnerNameBox}>Em andamento</Text>}
-								{game.winnerName !== '' && <Text style={styles.winnerNameBox}>{game.winnerName}</Text>}
-								<View style={styles.subViewBox}>
-									{game.score !== '' && <Text style={styles.subTextBox}>Total: {game.score}</Text>}
-									{game.dateTime !== '' && <Text style={styles.subTextBox}>{game.dateTime}</Text>}
-								</View>
+							{game.winnerName === '' && <Text style={styles.winnerNameBox}>Em andamento</Text>}
+							{game.winnerName !== '' && <Text style={styles.winnerNameBox}>{game.winnerName}</Text>}
+							<View style={styles.subViewBox}>
+								{game.score !== '' && <Text style={styles.subTextBox}>Total: {game.score}</Text>}
+								{game.dateTime !== '' && <Text style={styles.subTextBox}>{game.dateTime}</Text>}
+							</View>
 						</TouchableOpacity>
 					))}
 					{/* this.showAlertClearGame() */}
 					<TouchableOpacity onPress={() => this.props.clearGameHistory()} style={[styles.gameBox, styles.trashButton, styles.dropShadow]}>
-							<Text style={styles.trashButtonText}>Limpar histórico</Text>
-							<Image style={styles.trashButtonIcon} source={trashCan} />
+						<Text style={styles.trashButtonText}>Limpar histórico</Text>
+						<Image style={styles.trashButtonIcon} source={trashCan}/>
 					</TouchableOpacity>
 				</ScrollView>
 			</View>
