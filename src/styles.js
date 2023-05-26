@@ -127,5 +127,42 @@ export const styles = StyleSheet.create({
 		color: '#FFF',
 		textAlign: 'center',
 		fontWeight: 'bold'
+	},
+	gameBox: {
+		height: 100,
+		marginBottom: 15,
+		padding: 15,
+		backgroundColor: '#FFF',
+		borderColor: '#000',
+		borderWidth: 3,
+		borderRadius: 25,
+	},
+	winnerNameBox: {
+		fontSize: 30,
+		color: '#000'
+	},
+	subViewBox: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+	subTextBox: {
+		fontSize: 15,
+		color: '#000',
+		alignSelf: 'flex-end'
+	},
+	trashButton: {
+		flexDirection: 'row',
+		justifyContent: 'space-evenly'
+	},
+	trashButtonText: {
+		fontSize: 30,
+		color: '#000',
+		alignSelf: 'center'
+	},
+	trashButtonIcon: {
+		width: 30,
+		height: 30,
+		alignSelf: 'center'
 	}
 })

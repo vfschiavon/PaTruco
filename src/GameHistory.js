@@ -1,7 +1,8 @@
 import React from 'react';
-import { ImageBackground, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
 
-const backgroundImage = require('../assets/background/medium.png');
+import { styles } from './styles';
+
 const trashCan = require('../assets/icons/trash-can.png');
 
 
@@ -22,67 +23,25 @@ export default class GameHistory extends React.Component {
 	render() {
     const { gameHistory } = this.props;
     return (
-			<ImageBackground source={backgroundImage} resizeMode="cover" style={styles.background}>
-				<ScrollView contentContainerStyle={{ marginHorizontal: 15, marginVertical: 20 }} showsVerticalScrollIndicator={false}>
+			<View style={styles.background}>
+				<ScrollView showsVerticalScrollIndicator={false}>
 					{gameHistory.slice().reverse().map((game, index) => (
-						<View key={index} style={styles.gameBox}>
-							<TouchableOpacity onPress={() => this.navigate(game.turnHistory)} style={styles.column}>
-								{game.winnerName === '' && <Text style={styles.gameWinner}>Em andamento</Text>}
-								{game.winnerName !== '' && <Text style={styles.gameWinner}>{game.winnerName}</Text>}
-								<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-									{game.score !== '' && <Text style={styles.gameSubText}>Total: {game.score}</Text>}
-									{game.dateTime !== '' && <Text style={styles.gameSubText}>{game.dateTime}</Text>}
+						<TouchableOpacity key={index} onPress={() => this.navigate(game.turnHistory)} style={[styles.gameBox, styles.dropShadow]}>
+								{game.winnerName === '' && <Text style={styles.winnerNameBox}>Em andamento</Text>}
+								{game.winnerName !== '' && <Text style={styles.winnerNameBox}>{game.winnerName}</Text>}
+								<View style={styles.subViewBox}>
+									{game.score !== '' && <Text style={styles.subTextBox}>Total: {game.score}</Text>}
+									{game.dateTime !== '' && <Text style={styles.subTextBox}>{game.dateTime}</Text>}
 								</View>
-							</TouchableOpacity>
-						</View>
+						</TouchableOpacity>
 					))}
-					{/* <TouchableOpacity onPress={() => this.showAlertClearGame()} style={styles.column}> */}
-					<TouchableOpacity onPress={() => this.props.clearGameHistory()} style={styles.column}>
-						<View style={styles.gameBox}>
-							<Text style={[styles.gameWinner, {alignSelf: 'center'}]}>Limpar histórico</Text>
-							<Image style={{ width: 30, height: 30, alignSelf: 'center' }} source={trashCan} />
-						</View>
+					{/* this.showAlertClearGame() */}
+					<TouchableOpacity onPress={() => this.props.clearGameHistory()} style={[styles.gameBox, styles.trashButton, styles.dropShadow]}>
+							<Text style={styles.trashButtonText}>Limpar histórico</Text>
+							<Image style={styles.trashButtonIcon} source={trashCan} />
 					</TouchableOpacity>
 				</ScrollView>
-			</ImageBackground>
+			</View>
     )
   }
 }
-
-
-const styles = StyleSheet.create({
-	background: {
-		width: '100%',
-		height: '100%',
-	},
-	column: {
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'space-between',
-		marginVertical: 15,
-	},
-	gameBox: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		borderCollor: '#000',
-		borderWidth: 3,
-		height: 100,
-		marginHorizontal: 15,
-		marginTop: 20,
-		marginBottom: 10,
-		borderRadius: 10,
-		paddingHorizontal: 20,
-		backgroundColor: '#fff',
-		shadowColor: '#000',
-  	shadowOffset: { width: 0, height: 2 },
-  	shadowOpacity: 0.25,
-  	shadowRadius: 3.84,
-  	elevation: 5,
-	},
-	gameWinner: {
-		fontSize: 30,
-	},
-	gameSubText: {
-		fontSize: 15,
-	}
-})
