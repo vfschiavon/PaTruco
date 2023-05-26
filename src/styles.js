@@ -11,8 +11,7 @@ export const styles = StyleSheet.create({
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5
+		shadowRadius: 3.84
 	},
 	titleView: {
 		flex: 3,
@@ -53,7 +52,8 @@ export const styles = StyleSheet.create({
 		flex: 6
 	},
 	image: {
-		flex: 1,
+		width: '100%',
+		height: '100%',
 		resizeMode: 'contain'
 	},
 	subButtonsView: {
