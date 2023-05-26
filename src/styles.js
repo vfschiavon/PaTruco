@@ -24,7 +24,8 @@ export const styles = StyleSheet.create({
 	},
 	teamsView: {
 		flex: 4,
-		flexDirection: 'row'
+		flexDirection: 'row',
+		paddingTop: 15
 	},
 	namePointsViewRight: {
 		flex: 1,
